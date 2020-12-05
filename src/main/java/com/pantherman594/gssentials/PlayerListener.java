@@ -40,12 +40,12 @@ import java.util.stream.Collectors;
 public class PlayerListener implements Listener {
     private final Set<InetAddress> connections;
     private final Map<InetAddress, ServerInfo> redirServer;
-    private Set<UUID> quitAnnc;
-    private Map<UUID, String> cmds;
-    private Map<UUID, Long> cmdLog;
+    private final Set<UUID> quitAnnc;
+    private final Map<UUID, String> cmds;
+    private final Map<UUID, Long> cmdLog;
 
-    private Messenger mess;
-    private PlayerData pD;
+    private final Messenger mess;
+    private final PlayerData pD;
 
     PlayerListener() {
         quitAnnc = new HashSet<>();
@@ -99,7 +99,7 @@ public class PlayerListener implements Listener {
                 if (announce) {
                     ProxyServer.getInstance().getPlayers().stream().filter(onlinePlayer -> (onlinePlayer.getUniqueId() != player.getUniqueId()) && (Permissions.hasPerm(onlinePlayer, Permissions.Admin.SPY_COMMAND)) && pD.isCSpy(onlinePlayer.getUniqueId().toString())).forEach(onlinePlayer -> onlinePlayer.sendMessage(Dictionary.format(Dictionary.CSPY_COMMAND, "SENDER", sender, "COMMAND", event.getMessage())));
                     if (pD.isCSpy("CONSOLE")) {
-                        ProxyServer.getInstance().getConsole().sendMessage(Dictionary.format(Dictionary.CSPY_COMMAND, "SENDER", sender, "COMMAND", event.getMessage()).toLegacyText());
+                        ProxyServer.getInstance().getConsole().sendMessage(Dictionary.format(Dictionary.CSPY_COMMAND, "SENDER", sender, "COMMAND", event.getMessage()));
                     }
                 }
             }
@@ -148,7 +148,7 @@ public class PlayerListener implements Listener {
         if (BungeeEssentials.getInstance().contains("fastRelog")) {
             if (connections.contains(event.getConnection().getAddress().getAddress())) {
                 event.setCancelled(true);
-                event.setCancelReason(Dictionary.format(Dictionary.FAST_RELOG_KICK).toLegacyText());
+                event.setCancelReason(Dictionary.format(Dictionary.FAST_RELOG_KICK));
                 return;
             }
             connections.add(event.getConnection().getAddress().getAddress());
@@ -331,7 +331,7 @@ public class PlayerListener implements Listener {
             orders.put(Dictionary.HOVER_STAFF_ORDER, staff);
             orders.put(Dictionary.HOVER_OTHER_ORDER, other);
 
-            orders.keySet().stream().filter(order -> Integer.valueOf(order) > 0).forEach(order -> infos.addAll(orders.get(order)));
+            orders.keySet().stream().filter(order -> Integer.parseInt(order) > 0).forEach(order -> infos.addAll(orders.get(order)));
 
             players.setSample(infos.toArray(new ServerPing.PlayerInfo[infos.size() > 12 ? 12 : infos.size()]));
             players.setOnline(mess.getVisiblePlayers(false).size());
@@ -349,7 +349,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = Byte.MAX_VALUE)
     public void tab(TabCompleteResponseEvent event) {
         List<String> suggestions = event.getSuggestions();
-        List<String> remove = suggestions.stream().filter(suggestion -> ProxyServer.getInstance().getPlayer(suggestion) instanceof ProxiedPlayer && pD.isHidden(ProxyServer.getInstance().getPlayer(suggestion).getUniqueId().toString())).collect(Collectors.toList());
+        List<String> remove = suggestions.stream().filter(suggestion -> ProxyServer.getInstance().getPlayer(suggestion) != null && pD.isHidden(ProxyServer.getInstance().getPlayer(suggestion).getUniqueId().toString())).collect(Collectors.toList());
         remove.forEach(suggestions::remove);
     }
 

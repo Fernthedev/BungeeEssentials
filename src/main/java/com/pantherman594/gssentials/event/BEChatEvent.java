@@ -10,7 +10,7 @@ import net.md_5.bungee.api.plugin.Event;
  */
 @SuppressWarnings("WeakerAccess")
 public abstract class BEChatEvent extends Event implements Cancellable {
-    public PlayerData pD = BungeeEssentials.getInstance().getPlayerData();
+    public static final PlayerData pD = BungeeEssentials.getInstance().getPlayerData();
     private String server;
     private String sender;
     private String msg;

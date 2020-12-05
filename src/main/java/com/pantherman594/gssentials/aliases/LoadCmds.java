@@ -22,6 +22,7 @@ import com.pantherman594.gssentials.Dictionary;
 import com.pantherman594.gssentials.Permissions;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
@@ -44,7 +45,7 @@ class LoadCmds extends Command {
                 runCommand(command, sender, args);
             }
         } else {
-            sender.sendMessage(ProxyServer.getInstance().getTranslation("no_permission"));
+            sender.sendMessage(new TextComponent(ProxyServer.getInstance().getTranslation("no_permission")));
         }
     }
 
@@ -95,7 +96,7 @@ class LoadCmds extends Command {
                     for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
                         p.sendMessage(Dictionary.format(message));
                     }
-                } else if (command != null && ProxyServer.getInstance().getPlayer(recipient) != null) {
+                } else if (ProxyServer.getInstance().getPlayer(recipient) != null) {
                     ProxyServer.getInstance().getPlayer(recipient).sendMessage(Dictionary.format(message));
                 }
                 break;

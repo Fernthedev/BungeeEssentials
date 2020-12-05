@@ -24,6 +24,7 @@ import com.pantherman594.gssentials.regex.RuleManager;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ChatEvent;
 
@@ -36,8 +37,8 @@ import java.util.stream.Collectors;
 
 public class Messenger {
     public Map<UUID, UUID> messages = new HashMap<>();
-    private Map<UUID, String> sentMessages = new HashMap<>();
-    private Map<UUID, String> chatMessages = new HashMap<>();
+    private final Map<UUID, String> sentMessages = new HashMap<>();
+    private final Map<UUID, String> chatMessages = new HashMap<>();
 
     private PlayerData pD = BungeeEssentials.getInstance().getPlayerData();
 
@@ -137,15 +138,15 @@ public class Messenger {
                 }
                 finalReg += ")";
                 if (!finalReg.equals("\\b()")) {
-                    String replacement = Dictionary.BANNED_REPLACE;
+                    StringBuilder replacement = new StringBuilder(Dictionary.BANNED_REPLACE);
                     if (replacement.length() == 1) {
-                        String origRepl = replacement;
+                        String origRepl = replacement.toString();
                         while (replacement.length() < word.length()) {
-                            replacement += origRepl;
+                            replacement.append(origRepl);
                         }
                     }
-                    replacement += " ";
-                    String message2 = message.replaceAll(finalReg, replacement);
+                    replacement.append(" ");
+                    String message2 = message.replaceAll(finalReg, replacement.toString());
                     if (!message2.equals(message)) {
                         ruleNotify(Dictionary.NOTIFY_REPLACE, player, msg);
                         message = message2;
@@ -159,7 +160,7 @@ public class Messenger {
     private void ruleNotify(String notification, ProxiedPlayer player, String sentMessage) {
         ProxyServer.getInstance().getPlayers().stream().filter(p -> Permissions.hasPerm(p, Permissions.Admin.NOTIFY)).forEach(p -> {
             p.sendMessage(Dictionary.format(notification, "PLAYER", player.getName()));
-            p.sendMessage(ChatColor.GRAY + "Original Message: " + sentMessage);
+            p.sendMessage(new TextComponent(ChatColor.GRAY + "Original Message: " + sentMessage));
         });
     }
 

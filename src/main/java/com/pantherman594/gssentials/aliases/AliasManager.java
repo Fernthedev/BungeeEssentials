@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 public class AliasManager {
-    private Map<String, List<String>> aliases = new HashMap<>();
+    private final Map<String, List<String>> aliases = new HashMap<>();
 
     /**
      * Manages and sets up aliases.

@@ -21,7 +21,10 @@ package com.pantherman594.gssentials.command;
 import com.pantherman594.gssentials.Permissions;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+
+import java.awt.*;
 
 public abstract class ServerSpecificCommand extends BECommand {
     private final String permission;
@@ -41,7 +44,7 @@ public abstract class ServerSpecificCommand extends BECommand {
             if (Permissions.hasPerm(player, permission + "." + server)) {
                 run(sender, args);
             } else {
-                player.sendMessage(ProxyServer.getInstance().getTranslation("no_permission"));
+                player.sendMessage(new TextComponent(ProxyServer.getInstance().getTranslation("no_permission")));
             }
         }
     }

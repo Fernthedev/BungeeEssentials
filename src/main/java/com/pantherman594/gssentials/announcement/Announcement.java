@@ -25,10 +25,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Announcement {
-    private Integer delay;
-    private Integer interval;
-    private String msg;
-    private String server;
+    private final Integer delay;
+    private final Integer interval;
+    private final String msg;
+    private final String server;
 
     /**
      * Sets up an announcement

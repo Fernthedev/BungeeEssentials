@@ -40,9 +40,9 @@ public abstract class Database {
     String tableName;
     boolean isNewMySql;
 
-    private String primary;
+    private final String primary;
     private Connection connection;
-    private boolean mysql;
+    private final boolean mysql;
     private String url;
     private String username;
     private String password;

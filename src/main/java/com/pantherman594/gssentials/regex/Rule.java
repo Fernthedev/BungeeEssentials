@@ -31,7 +31,7 @@ public class Rule {
     private Handle handle = null;
     private String replacement;
     private String command;
-    private List<String> matches;
+    private final List<String> matches;
 
     /**
      * Create a new filter rule.

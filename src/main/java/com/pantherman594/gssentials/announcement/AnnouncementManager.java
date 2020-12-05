@@ -32,13 +32,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 public class AnnouncementManager {
-    private Map<String, Announcement> anncs = new HashMap<>();
+    private final Map<String, Announcement> anncs = new HashMap<>();
 
     /**
      * Manages Announcements.
      */
     public AnnouncementManager() {
-        anncs.clear();
         Configuration anncSection = BungeeEssentials.getInstance().getMessages().getSection("announcements");
         for (String annc : anncSection.getKeys()) {
             int delay = anncSection.getInt(annc + ".delay");

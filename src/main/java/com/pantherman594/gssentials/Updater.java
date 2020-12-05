@@ -37,7 +37,7 @@ class Updater {
 
     private static final String VERSION_LINK = "https://raw.githubusercontent.com/PantherMan594/BungeeEssentials/master/version.txt";
 
-    private BungeeEssentials plugin = BungeeEssentials.getInstance();
+    private final BungeeEssentials plugin = BungeeEssentials.getInstance();
 
     /**
      * Updater for the BungeeEssentials plugin.

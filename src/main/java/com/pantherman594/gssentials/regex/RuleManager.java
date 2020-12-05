@@ -26,20 +26,17 @@ import java.util.Map;
 import java.util.logging.Level;
 
 public class RuleManager {
-    private List<Rule> rules = new ArrayList<>();
+    private final List<Rule> rules = new ArrayList<>();
 
     /**
      * Manages rules, sets them up from the config.
      */
     @SuppressWarnings("unchecked")
     public RuleManager() {
-        rules.clear();
         List<Map<String, String>> section = (List<Map<String, String>>) BungeeEssentials.getInstance().getMessages().getList("rules");
         for (Map<String, String> map : section) {
             Rule rule = Rule.deserialize(map);
-            if (rule != null) {
-                rules.add(rule);
-            }
+            rules.add(rule);
         }
         if (rules.size() > 0) {
             BungeeEssentials.getInstance().getLogger().log(Level.INFO, "Loaded {0} rules from config", rules.size());
@@ -54,7 +51,7 @@ public class RuleManager {
      */
     public List<MatchResult> matches(String input) {
         List<MatchResult> results = new ArrayList<>();
-        Boolean contains = false;
+        boolean contains = false;
         for (Rule rule : rules) {
             if (rule.matches(input)) {
                 results.add(new MatchResult(true, rule));
@@ -80,7 +77,7 @@ public class RuleManager {
         return rules;
     }
 
-    public class MatchResult {
+    public static class MatchResult {
         private final boolean success;
         private final Rule rule;
 

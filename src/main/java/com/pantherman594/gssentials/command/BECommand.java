@@ -26,6 +26,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,7 @@ import java.util.stream.Collectors;
  * @author David
  */
 public abstract class BECommand extends Command {
-    public PlayerData pD = BungeeEssentials.getInstance().getPlayerData();
+    public static final PlayerData pD = BungeeEssentials.getInstance().getPlayerData();
 
     public BECommand(String name, String permission) {
         super(BungeeEssentials.getInstance().getMain(name), permission, BungeeEssentials.getInstance().getAlias(name));

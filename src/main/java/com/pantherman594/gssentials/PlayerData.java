@@ -38,9 +38,9 @@ import java.util.logging.Level;
 @SuppressWarnings({"WeakerAccess", "ResultOfMethodCallIgnored", "UnusedParameters", "unused"})
 public class PlayerData {
 
-    private static com.pantherman594.gssentials.database.PlayerData pD = BungeeEssentials.getInstance().getPlayerData();
+    private static final com.pantherman594.gssentials.database.PlayerData pD = BungeeEssentials.getInstance().getPlayerData();
 
-    private String uuid;
+    private final String uuid;
 
     /**
      * @deprecated
@@ -60,7 +60,7 @@ public class PlayerData {
         pD.createDataNotExist("CONSOLE");
         File playerDir = new File(BungeeEssentials.getInstance().getDataFolder() + File.separator + "playerdata");
         if (playerDir.exists()) {
-            for (File playerFile : playerDir.listFiles()) {
+            for (File playerFile : Objects.requireNonNull(playerDir.listFiles())) {
                 if (!playerFile.getName().endsWith(".yml")) {
                     continue;
                 }
@@ -160,7 +160,7 @@ public class PlayerData {
     @Deprecated
     public List<String> getFriends() {
         Set<String> friends = pD.getFriends(uuid);
-        return Arrays.asList(friends.toArray(new String[friends.size()]));
+        return Arrays.asList(friends.toArray(new String[0]));
     }
 
     /**
@@ -169,7 +169,7 @@ public class PlayerData {
     @Deprecated
     public List<String> getOutRequests() {
         Set<String> outRequests = pD.getOutRequests(uuid);
-        return Arrays.asList(outRequests.toArray(new String[outRequests.size()]));
+        return Arrays.asList(outRequests.toArray(new String[0]));
     }
 
     /**
@@ -178,7 +178,7 @@ public class PlayerData {
     @Deprecated
     public List<String> getInRequests() {
         Set<String> inRequests = pD.getInRequests(uuid);
-        return Arrays.asList(inRequests.toArray(new String[inRequests.size()]));
+        return Arrays.asList(inRequests.toArray(new String[0]));
     }
 
     /**

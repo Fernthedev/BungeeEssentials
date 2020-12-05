@@ -48,8 +48,8 @@ import java.util.logging.Level;
 
 public class BungeeEssentials extends Plugin {
     private static BungeeEssentials instance;
-    private Map<String, String> mainList = new HashMap<>();
-    private Map<String, String[]> aliasList = new HashMap<>();
+    private final Map<String, String> mainList = new HashMap<>();
+    private final Map<String, String[]> aliasList = new HashMap<>();
     private RuleManager ruleManager;
     private Configuration config;
     private Configuration messages = null;
@@ -348,7 +348,7 @@ public class BungeeEssentials extends Plugin {
         commands.put("staffchat", "com.pantherman594.gssentials.command.admin.StaffChatCommand");
         if (commands.containsKey(comm)) {
             try {
-                Class cClass = Class.forName(commands.get(comm));
+                Class<?> cClass = Class.forName(commands.get(comm));
                 ProxyServer.getInstance().getPluginManager().registerCommand(this, (Command) cClass.newInstance());
             } catch (Exception e) {
                 e.printStackTrace();

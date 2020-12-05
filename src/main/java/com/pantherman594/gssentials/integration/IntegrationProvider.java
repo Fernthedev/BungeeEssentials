@@ -27,8 +27,8 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class IntegrationProvider {
-    private static Map<String, Class<? extends IntegrationProvider>> providers = new HashMap<>();
-    private static Map<Class<? extends IntegrationProvider>, IntegrationProvider> instances = new HashMap<>();
+    private static final Map<String, Class<? extends IntegrationProvider>> providers = new HashMap<>();
+    private static final Map<Class<? extends IntegrationProvider>, IntegrationProvider> instances = new HashMap<>();
 
     static {
         /*

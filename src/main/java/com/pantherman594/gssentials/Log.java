@@ -33,7 +33,7 @@ import java.util.logging.*;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class Log {
-    private static Joiner joiner = Joiner.on(", ");
+    private static final Joiner joiner = Joiner.on(", ");
     private static Logger logger;
 
     /**
@@ -133,8 +133,6 @@ public class Log {
                     prefix += "CURSING";
                     break;
                 case REPLACE:
-                    prefix += "FILTER";
-                    break;
                 case COMMAND:
                     prefix += "FILTER";
                     break;
